@@ -96,7 +96,10 @@ def _parameterize_test_case(base, i, param):
                 err_class = e.__class__
                 if isinstance(e, driver.CUDADriverError):
                     err_class, = err_class.__bases__
-                utils._raise_from(err_class, s.getvalue(), e)
+                try:
+                    utils._raise_from(err_class, s.getvalue(), e)
+                except Exception as e2:
+                    utils._raise_from(ValueError, s.getvalue(), e)
         return new_method
 
     return (cls_name, mb, method_generator)
