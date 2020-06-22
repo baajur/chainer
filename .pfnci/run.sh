@@ -139,7 +139,7 @@ test_py27and35() {
   # Install Chainer
   #-----------------------------------------------------------------------------
   # Install Chainer for python3.5.
-  CHAINER_BUILD_CHAINERX=1 CHAINERX_BUILD_CUDA=1 \
+  CHAINER_BUILD_CHAINERX=0 CHAINERX_BUILD_CUDA=0 \
   MAKEFLAGS="-j$(get_build_concurrency)" \
   CHAINERX_NVCC_GENERATE_CODE=arch=compute_70,code=sm_70 \
       python3.5 -m pip install /chainer[test] 2>&1 >/tmp/install-py35.log &
