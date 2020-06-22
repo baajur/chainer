@@ -9,7 +9,6 @@ import six
 
 from chainer.testing import _bundle
 from chainer import utils
-from cupy.cuda import driver
 
 
 def _param_to_str(obj):
@@ -94,8 +93,8 @@ def _parameterize_test_case(base, i, param):
                 for k, v in sorted(param.items()):
                     s.write('  {}: {}\n'.format(k, v))
                 err_class = e.__class__
-                if isinstance(e, driver.CUDADriverError):
-                    err_class, = err_class.__bases__
+                if err_class.__name__ == 'OutOfMemoryError':
+                    err_class, = MemoryError
                 utils._raise_from(err_class, s.getvalue(), e)
         return new_method
 
